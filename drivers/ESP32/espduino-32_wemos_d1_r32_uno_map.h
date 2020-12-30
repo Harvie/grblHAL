@@ -3,7 +3,7 @@
 
   Driver code for ESP32
 
-  Part of GrblHAL
+  Part of grblHAL
 
   Copyright (c) 2020 Terje Io
 
@@ -71,7 +71,7 @@
 
 // Define homing/hard limit switch input pins and limit interrupt vectors.
 #define X_LIMIT_PIN     GPIO_NUM_13
-#define Y_LIMIT_PIN     GPIO_NUM_05
+#define Y_LIMIT_PIN     GPIO_NUM_5
 #define Z_LIMIT_PIN     GPIO_NUM_23
 #define LIMIT_MASK      (1ULL << X_LIMIT_PIN|1ULL << Y_LIMIT_PIN|1ULL << Z_LIMIT_PIN) // All limit bits
 
@@ -85,22 +85,17 @@
 #define SPINDLE_MASK            0
 #endif
 
-// Define flood and mist coolant enable output pins.
-
-#define COOLANT_FLOOD_PIN   GPIO_NUM_34
-#ifndef VFD_SPINDLE
-//#define COOLANT_MIST_PIN    GPIO_NUM_36
-#define COOLANT_MASK        (1UL << COOLANT_FLOOD_PIN|1ULL << COOLANT_MIST_PIN)
-#else
-#define COOLANT_MASK        (1UL << COOLANT_FLOOD_PIN)
+// Define flood enable output pin.
+#if !MODBUS_ENABLE
+#define COOLANT_FLOOD_PIN   GPIO_NUM_15
+#define COOLANT_MASK        (1ULL << COOLANT_FLOOD_PIN)
 #endif
 
 // Define user-control CONTROLs (cycle start, reset, feed hold) input pins.
-#define RESET_PIN           GPIO_NUM_02
-#define FEED_HOLD_PIN       GPIO_NUM_04
-#define CYCLE_START_PIN     GPIO_NUM_36
-//#define SAFETY_DOOR_PIN     GPIO_NUM_39
-#define CONTROL_MASK        (1UL << RESET_PIN|1UL << FEED_HOLD_PIN|1UL << CYCLE_START_PIN|1UL << SAFETY_DOOR_PIN)
+#define RESET_PIN           GPIO_NUM_2
+#define FEED_HOLD_PIN       GPIO_NUM_4
+#define CYCLE_START_PIN     GPIO_NUM_35
+#define CONTROL_MASK        (1ULL << RESET_PIN|1ULL << FEED_HOLD_PIN|1ULL << CYCLE_START_PIN)
 
 // Define probe switch input pin.
 #if PROBE_ENABLE
